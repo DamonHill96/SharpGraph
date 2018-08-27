@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Dijkstra_s_Algorithm.src.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dijkstra_s_Algorithm.src.Graph.Tests
+namespace SharpGraph.src
 {
     [TestClass()]
     public class GraphTests

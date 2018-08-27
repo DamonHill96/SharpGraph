@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dijkstra_s_Algorithm.src.Graph
+namespace SharpGraph.src
 {
     public class UndirectedGraph : Graph
     {
