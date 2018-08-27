@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpGraph", "SharpGraph\SharpGraph.csproj", "{BA527EC4-A30C-48E5-B0B2-3A1FE254145D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpGraphTests", "SharpGraphTests\SharpGraphTests.csproj", "{7843EA74-BC3C-4398-A394-505DA8F7D023}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BA527EC4-A30C-48E5-B0B2-3A1FE254145D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA527EC4-A30C-48E5-B0B2-3A1FE254145D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA527EC4-A30C-48E5-B0B2-3A1FE254145D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7843EA74-BC3C-4398-A394-505DA8F7D023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7843EA74-BC3C-4398-A394-505DA8F7D023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7843EA74-BC3C-4398-A394-505DA8F7D023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7843EA74-BC3C-4398-A394-505DA8F7D023}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
