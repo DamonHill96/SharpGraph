@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace SharpGraph.src
 {
     [TestClass()]
-    public class GraphTests
+    public class UndirectedGraphTests
     {
         Graph graph = new UndirectedGraph();
         Vertex v1 = new Vertex();
         Vertex v2 = new Vertex(7);
         Vertex v3 = new Vertex(10);
 
-        public GraphTests()
+        public UndirectedGraphTests()
         {
             graph.MyGraph.Add(v1);
             graph.MyGraph.Add(v2);
@@ -25,8 +25,10 @@ namespace SharpGraph.src
         [TestMethod()]
         public void IsAdjacentTest()
         {
+
             v1.AdjacentVertices.Add(new Adjacency(v2));
             v2.AdjacentVertices.Add(new Adjacency(v1));
+
 
             Assert.IsTrue(graph.IsAdjacent(v1, v2));
         }
@@ -74,6 +76,12 @@ namespace SharpGraph.src
         {
             graph.AddEdge(v1, v2);
             Assert.IsNotNull(graph.MyGraph[0].AdjacentVertices[0]);
+        }
+        [TestMethod()]
+        public void AddEdgeTestWithDistance()
+        {
+            graph.AddEdge(v1, v2, 16);
+            Assert.AreEqual(16, graph.MyGraph[0].AdjacentVertices[0].Distance);
         }
 
         [TestMethod()]
