@@ -66,6 +66,7 @@ namespace SharpGraph.src
         /// Sets Distance between two vertices
         /// </summary>
         public abstract void SetEdgeValue(Vertex a, Vertex b, int newDistance);
-                
+          
+        
     }
 }
