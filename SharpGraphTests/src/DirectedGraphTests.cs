@@ -24,7 +24,7 @@ namespace SharpGraph.src.Tests
         }
 
         [TestMethod()]
-        public void IsAdjacentTest()
+        public void DirectedIsAdjacentTest()
         {
 
             v1.AdjacentVertices.Add(new Adjacency(v2));
@@ -35,7 +35,7 @@ namespace SharpGraph.src.Tests
         }
 
         [TestMethod()]
-        public void NeighborsTest()
+        public void DirectedNeighborsTest()
         {
 
 
@@ -54,7 +54,7 @@ namespace SharpGraph.src.Tests
         }
 
         [TestMethod()]
-        public void AddVertexTest()
+        public void DirectedAddVertexTest()
         {
             Graph graph2 = new DirectedGraph();
             graph2.AddVertex(v1);
@@ -65,7 +65,7 @@ namespace SharpGraph.src.Tests
         }
 
         [TestMethod()]
-        public void RemoveVertexTest()
+        public void DirectedRemoveVertexTest()
         {
 
             graph.RemoveVertex(v1);
@@ -73,20 +73,20 @@ namespace SharpGraph.src.Tests
         }
 
         [TestMethod()]
-        public void AddEdgeTest()
+        public void DirectedAddEdgeTest()
         {
             graph.AddEdge(v1, v2);
             Assert.IsNotNull(graph.MyGraph[0].AdjacentVertices[0]);
         }
         [TestMethod()]
-        public void AddEdgeTestWithDistance()
+        public void DirectedAddEdgeTestWithDistance()
         {
             graph.AddEdge(v1, v2, 16);
             Assert.AreEqual(16, graph.MyGraph[0].AdjacentVertices[0].Distance);
         }
 
         [TestMethod()]
-        public void RemoveEdgeTest()
+        public void DirectedRemoveEdgeTest()
         {
             v1.AdjacentVertices.Add(new Adjacency(v2));
             v2.AdjacentVertices.Add(new Adjacency(v1));
@@ -98,20 +98,20 @@ namespace SharpGraph.src.Tests
         }
 
         [TestMethod()]
-        public void GetVertexValueTest()
+        public void DirectedGetVertexValueTest()
         {
             Assert.AreEqual(7, graph.GetVertexValue(v2));
         }
 
         [TestMethod()]
-        public void SetVertexValueTest()
+        public void DirectedSetVertexValueTest()
         {
             graph.SetVertexValue(v1, 14);
             Assert.AreEqual(14, graph.MyGraph[0].VertexID);
         }
 
         [TestMethod()]
-        public void GetEdgeValueTest()
+        public void DirectedGetEdgeValueTest()
         {
             v1.AdjacentVertices.Add(new Adjacency(v2, 5));
             v2.AdjacentVertices.Add(new Adjacency(v1, 5));
@@ -121,7 +121,7 @@ namespace SharpGraph.src.Tests
         }
 
         [TestMethod()]
-        public void SetEdgeValueTest()
+        public void DirectedSetEdgeValueTest()
         {
             v1.AdjacentVertices.Add(new Adjacency(v2, 5));
             v2.AdjacentVertices.Add(new Adjacency(v1, 5));
