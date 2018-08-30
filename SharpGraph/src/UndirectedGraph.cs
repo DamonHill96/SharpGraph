@@ -10,20 +10,20 @@ namespace SharpGraph.src
     {
         public UndirectedGraph()
         {
-            
+
             VertexIDCounter = 1;
             MyGraph = new List<Vertex>();
-            
+
         }
 
         //This is only used if an id is not constructed when a Vertex object is created
         //TODO unique id for each vertex
         public int VertexIDCounter { get; set; }
 
-        public override void AddEdge(Vertex a,Vertex b)
+        public override void AddEdge(Vertex a, Vertex b)
         {
-            
-            a.AdjacentVertices.Add(new Adjacency(b));          
+
+            a.AdjacentVertices.Add(new Adjacency(b));
             b.AdjacentVertices.Add(new Adjacency(a));
 
 
@@ -31,10 +31,10 @@ namespace SharpGraph.src
             MyGraph[MyGraph.FindIndex(x => x.VertexID == a.VertexID)] = a;
             MyGraph[MyGraph.FindIndex(x => x.VertexID == b.VertexID)] = b;
         }
-        public override void AddEdge(Vertex a,Vertex b, int distance)
+        public override void AddEdge(Vertex a, Vertex b, int distance)
         {
-            
-            a.AdjacentVertices.Add(new Adjacency(b, distance));          
+
+            a.AdjacentVertices.Add(new Adjacency(b, distance));
             b.AdjacentVertices.Add(new Adjacency(a, distance));
 
 
@@ -47,35 +47,35 @@ namespace SharpGraph.src
         {
             if (name == null)
             {
-               name = VertexIDCounter++.ToString();
+                name = VertexIDCounter++.ToString();
             }
             MyGraph.Add(new Vertex(name));
-            
+
         }
 
         public override void AddVertex(Vertex a)
         {
             if (a.VertexID == null)
             {
-               a.VertexID = VertexIDCounter++.ToString();
+                a.VertexID = VertexIDCounter++.ToString();
             }
             MyGraph.Add(a);
-            
+
         }
 
-       
-       
+
+
         public override bool IsAdjacent(Vertex a, Vertex b)
         {
-           return a.AdjacentVertices.Exists(x => x.AdjacentVertex.VertexID == b.VertexID);
-                    
+            return a.AdjacentVertices.Exists(x => x.AdjacentVertex.VertexID == b.VertexID);
+
         }
 
-        
+
         public override int GetEdgeValue(Vertex a, Vertex b)
         {
             return a.AdjacentVertices.Find(x => x.AdjacentVertex == b).Distance;
-            
+
         }
 
         public override string GetVertexValue(Vertex a)
@@ -88,7 +88,22 @@ namespace SharpGraph.src
             foreach (Adjacency adj in a.AdjacentVertices)
             {
                 Console.WriteLine("Vertex ID: {0} is connected to: {1} with a distance of {2}", a.VertexID, adj.AdjacentVertex.VertexID, adj.Distance);
+                Logger.Log("Vertex ID: {0} is connected to: {1} with a distance of {2}", a.VertexID, adj.AdjacentVertex.VertexID, adj.Distance);
+                Logger.Log(Environment.NewLine);
             }
+        }
+
+        public void ListAllAdjacencies(Graph g)
+        {
+            foreach (Vertex v in g.MyGraph)
+            {
+                Logger.Log("Vertex ID: {0}", v.VertexID);
+                Logger.Log(Environment.NewLine);
+
+                Neighbors(v);
+                
+            }
+            Logger.Close();
         }
 
         public override void RemoveEdge(Vertex a, Vertex b)
@@ -103,8 +118,8 @@ namespace SharpGraph.src
 
             MyGraph[graphIndexA].AdjacentVertices.Remove(MyGraph[graphIndexA].AdjacentVertices[AdjIndexA]);
             MyGraph[graphIndexB].AdjacentVertices.Remove(MyGraph[graphIndexB].AdjacentVertices[AdjIndexB]);
-            
-            
+
+
         }
 
         public override void RemoveVertex(Vertex a)
@@ -124,7 +139,7 @@ namespace SharpGraph.src
             MyGraph[MyGraph.FindIndex(x => x.VertexID == a.VertexID)] = a;
         }
 
-        
+
 
         public List<Vertex> Finish()
         {

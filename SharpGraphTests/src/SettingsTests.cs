@@ -12,7 +12,7 @@ namespace SharpGraph.src.Tests
     public class SettingsTests
     {
         [TestMethod()]
-        public void SaveTest()
+        public void UndirectedSaveTest()
         {
             Graph graph = new UndirectedGraph();
 
@@ -28,11 +28,31 @@ namespace SharpGraph.src.Tests
             graph.AddEdge(v1, v3, 7);
 
 
-            Settings.Save(graph, @"C:\Users\Damon\test.xml", Settings.GraphType.Undirected);
+            Settings.Save(graph, @"C:\Users\Damon\undirectedtest.xml", Settings.GraphType.Undirected);
         }
 
         [TestMethod()]
-        public void LoadTest()
+        public void DirectedSaveTest()
+        {
+            Graph graph = new DirectedGraph();
+
+            Vertex v1 = new Vertex("1");
+            Vertex v2 = new Vertex("London Bridge");
+            Vertex v3 = new Vertex("Victoria");
+
+            graph.MyGraph.Add(v1);
+            graph.MyGraph.Add(v2);
+            graph.MyGraph.Add(v3);
+
+            graph.AddEdge(v1, v2);
+            graph.AddEdge(v1, v3, 7);
+
+
+            Settings.Save(graph, @"C:\Users\Damon\directedtest.xml", Settings.GraphType.Directed);
+        }
+
+        [TestMethod()]
+        public void UndirectedLoadTest()
         {
             Graph graph = new UndirectedGraph();
 
@@ -46,10 +66,39 @@ namespace SharpGraph.src.Tests
 
             graph.AddEdge(v1, v2);
             graph.AddEdge(v1, v3, 7);
-            Graph loadedGraph = Settings.Load(@"C:\Users\Damon\test.xml");
+            Graph loadedGraph = Settings.Load(@"C:\Users\Damon\undirectedtest.xml");
             Assert.IsTrue(graph.MyGraph[1].VertexID == loadedGraph.MyGraph[1].VertexID);
             Assert.IsTrue(graph.MyGraph[0].AdjacentVertices[1].Distance == loadedGraph.MyGraph[0].AdjacentVertices[1].Distance);
             Assert.AreEqual("Victoria", graph.MyGraph[2].VertexID);
+        }
+
+        [TestMethod()]
+        public void DirectedLoadTest()
+        {
+            Graph graph = new DirectedGraph();
+
+            Vertex v1 = new Vertex();
+            Vertex v2 = new Vertex("London Bridge");
+            Vertex v3 = new Vertex("Victoria");
+
+            graph.MyGraph.Add(v1);
+            graph.MyGraph.Add(v2);
+            graph.MyGraph.Add(v3);
+
+            graph.AddEdge(v1, v2);
+            graph.AddEdge(v1, v3, 7);
+            Graph loadedGraph = Settings.Load(@"C:\Users\Damon\directedtest.xml");
+            Assert.IsTrue(graph.MyGraph[1].VertexID == loadedGraph.MyGraph[1].VertexID);
+            Assert.IsTrue(graph.MyGraph[0].AdjacentVertices[1].Distance == loadedGraph.MyGraph[0].AdjacentVertices[1].Distance);
+            Assert.AreEqual("Victoria", graph.MyGraph[2].VertexID);
+        }
+
+        //Done here because static class
+        [TestMethod()]
+        public void LoggerTest()
+        {
+            UndirectedGraph loadedGraph = (UndirectedGraph) Settings.Load(@"C:\Users\Damon\undirectedtest.xml");
+            loadedGraph.ListAllAdjacencies(loadedGraph);
         }
 
         

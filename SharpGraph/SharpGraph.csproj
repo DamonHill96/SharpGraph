@@ -44,6 +44,7 @@
     <Compile Include="src\Adjacency.cs" />
     <Compile Include="src\DirectedGraph.cs" />
     <Compile Include="src\Graph.cs" />
+    <Compile Include="src\Logger.cs" />
     <Compile Include="src\Settings.cs" />
     <Compile Include="src\UndirectedGraph.cs" />
     <Compile Include="src\Vertex.cs" />
