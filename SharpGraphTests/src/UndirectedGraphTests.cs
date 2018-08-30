@@ -12,8 +12,8 @@ namespace SharpGraph.src
     {
         Graph graph = new UndirectedGraph();
         Vertex v1 = new Vertex();
-        Vertex v2 = new Vertex(7);
-        Vertex v3 = new Vertex(10);
+        Vertex v2 = new Vertex("Bank");
+        Vertex v3 = new Vertex("London Bridge");
 
         public UndirectedGraphTests()
         {
@@ -56,10 +56,10 @@ namespace SharpGraph.src
         public void UndirectedAddVertexTest()
         {
             Graph graph2 = new UndirectedGraph();
-            graph2.AddVertex(v1);
-            graph2.AddVertex(v2);
+            graph2.AddVertex("Paddington");
+            graph2.AddVertex("Old Street");
 
-            Assert.AreEqual(7, graph2.MyGraph[1].VertexID);
+            Assert.AreEqual("Old Street", graph2.MyGraph[1].VertexID);
 
         }
 
@@ -99,14 +99,14 @@ namespace SharpGraph.src
         [TestMethod()]
         public void UndirectedGetVertexValueTest()
         {
-            Assert.AreEqual(7, graph.GetVertexValue(v2));
+            Assert.AreEqual("Bank", graph.GetVertexValue(v2));
         }
 
         [TestMethod()]
         public void UndirectedSetVertexValueTest()
         {
-            graph.SetVertexValue(v1, 14);
-            Assert.AreEqual(14, graph.MyGraph[0].VertexID);
+            graph.SetVertexValue(v1, "Waterloo");
+            Assert.AreEqual("Waterloo", graph.MyGraph[0].VertexID);
         }
 
         [TestMethod()]

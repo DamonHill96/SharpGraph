@@ -13,8 +13,8 @@ namespace SharpGraph.src.Tests
     {
         Graph graph = new DirectedGraph();
         Vertex v1 = new Vertex();
-        Vertex v2 = new Vertex(7);
-        Vertex v3 = new Vertex(10);
+        Vertex v2 = new Vertex("Custom House");
+        Vertex v3 = new Vertex("Prince Regent");
 
         public DirectedGraphTests()
         {
@@ -60,7 +60,7 @@ namespace SharpGraph.src.Tests
             graph2.AddVertex(v1);
             graph2.AddVertex(v2);
 
-            Assert.AreEqual(7, graph2.MyGraph[1].VertexID);
+            Assert.AreEqual("Custom House", graph2.MyGraph[1].VertexID);
 
         }
 
@@ -100,14 +100,14 @@ namespace SharpGraph.src.Tests
         [TestMethod()]
         public void DirectedGetVertexValueTest()
         {
-            Assert.AreEqual(7, graph.GetVertexValue(v2));
+            Assert.AreEqual("Custom House", graph.GetVertexValue(v2));
         }
 
         [TestMethod()]
         public void DirectedSetVertexValueTest()
         {
-            graph.SetVertexValue(v1, 14);
-            Assert.AreEqual(14, graph.MyGraph[0].VertexID);
+            graph.SetVertexValue(v1, "14");
+            Assert.AreEqual("14", graph.MyGraph[0].VertexID);
         }
 
         [TestMethod()]

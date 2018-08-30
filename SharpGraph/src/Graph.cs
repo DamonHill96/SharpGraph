@@ -25,8 +25,8 @@ namespace SharpGraph.src
         /// <summary>
         /// Add a new Vertex to the graph
         /// </summary>
+        public abstract void AddVertex(string name);
         public abstract void AddVertex(Vertex a);
-
         /// <summary>
         /// Removes a vertex from the graph
         /// </summary>
@@ -50,12 +50,12 @@ namespace SharpGraph.src
         /// <summary>
         /// Returns the ID of a vertex (Can also be done through Vertex.VertexID)
         /// </summary>
-        public abstract int GetVertexValue(Vertex a);
+        public abstract string GetVertexValue(Vertex a);
 
         /// <summary>
         /// Sets the ID of a Vertex (Can also be done through Vertex.VertexID)
         /// </summary>
-        public abstract void SetVertexValue(Vertex a, int newValue);
+        public abstract void SetVertexValue(Vertex a, string newValue);
 
         /// <summary>
         /// Returns the Distance between two vertices

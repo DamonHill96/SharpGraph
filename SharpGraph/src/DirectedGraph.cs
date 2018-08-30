@@ -40,11 +40,21 @@ namespace SharpGraph.src
             
         }
 
+        public override void AddVertex(string name)
+        {
+            if (name == null)
+            {
+                name = VertexIDCounter++.ToString();
+            }
+            MyGraph.Add(new Vertex(name));
+
+        }
+
         public override void AddVertex(Vertex a)
         {
-            if (a.VertexID == 0)
+            if (a.VertexID == null)
             {
-                a.VertexID = VertexIDCounter++;
+                a.VertexID = VertexIDCounter++.ToString();
             }
             MyGraph.Add(a);
 
@@ -65,7 +75,7 @@ namespace SharpGraph.src
 
         }
 
-        public override int GetVertexValue(Vertex a)
+        public override string GetVertexValue(Vertex a)
         {
             return a.VertexID;
         }
@@ -105,7 +115,7 @@ namespace SharpGraph.src
             b.AdjacentVertices.Find(x => x.AdjacentVertex == a).Distance = newDistance;
         }
 
-        public override void SetVertexValue(Vertex a, int newValue)
+        public override void SetVertexValue(Vertex a, string newValue)
         {
             a.VertexID = newValue;
             MyGraph[MyGraph.FindIndex(x => x.VertexID == a.VertexID)] = a;

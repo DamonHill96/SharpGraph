@@ -8,14 +8,14 @@ namespace SharpGraph.src
 {
    public class Vertex
     {
-        public int VertexID { get; set; }
+        public string VertexID { get; set; }
         public List<Adjacency> AdjacentVertices { get; set; } = new List<Adjacency>();
 
         public Vertex()
         {
         }
 
-        public Vertex(int vertexID)
+        public Vertex(string vertexID)
         {
             this.VertexID = vertexID;
         }

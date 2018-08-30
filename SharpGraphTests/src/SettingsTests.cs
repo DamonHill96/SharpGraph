@@ -16,9 +16,9 @@ namespace SharpGraph.src.Tests
         {
             Graph graph = new UndirectedGraph();
 
-            Vertex v1 = new Vertex(4);
-            Vertex v2 = new Vertex(7);
-            Vertex v3 = new Vertex(10);
+            Vertex v1 = new Vertex("1");
+            Vertex v2 = new Vertex("London Bridge");
+            Vertex v3 = new Vertex("Victoria");
 
             graph.MyGraph.Add(v1);
             graph.MyGraph.Add(v2);
@@ -36,9 +36,9 @@ namespace SharpGraph.src.Tests
         {
             Graph graph = new UndirectedGraph();
 
-            Vertex v1 = new Vertex(4);
-            Vertex v2 = new Vertex(7);
-            Vertex v3 = new Vertex(10);
+            Vertex v1 = new Vertex();
+            Vertex v2 = new Vertex("London Bridge");
+            Vertex v3 = new Vertex("Victoria");
 
             graph.MyGraph.Add(v1);
             graph.MyGraph.Add(v2);
@@ -47,9 +47,9 @@ namespace SharpGraph.src.Tests
             graph.AddEdge(v1, v2);
             graph.AddEdge(v1, v3, 7);
             Graph loadedGraph = Settings.Load(@"C:\Users\Damon\test.xml");
-            Assert.IsTrue(graph.MyGraph[1].AdjacentVertices[0].Distance == loadedGraph.MyGraph[1].AdjacentVertices[0].Distance);
+            Assert.IsTrue(graph.MyGraph[1].VertexID == loadedGraph.MyGraph[1].VertexID);
             Assert.IsTrue(graph.MyGraph[0].AdjacentVertices[1].Distance == loadedGraph.MyGraph[0].AdjacentVertices[1].Distance);
-            
+            Assert.AreEqual("Victoria", graph.MyGraph[2].VertexID);
         }
 
         

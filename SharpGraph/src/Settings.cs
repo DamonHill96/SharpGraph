@@ -96,10 +96,10 @@ namespace SharpGraph.src
                 //TODO allow id to be more than just int
                 foreach (XmlNode x in list)
                 {
-                    int id = int.Parse(x.Attributes["id"].Value);
+                    string id = x.Attributes["id"].Value;
 
                     graph.AddVertex(LoadVertices(id));
-
+                    
                 }
 
                 LoadAdjacencies(graph, list);
@@ -136,7 +136,7 @@ namespace SharpGraph.src
                 Vertex currentVertex = graph.MyGraph[i];
                 foreach (XmlNode node in list[i].ChildNodes) //Get each adjacency that has been saved
                 {
-                    var id = int.Parse(node.Attributes["id"].Value);
+                    var id = node.Attributes["id"].Value;
                     var distance = int.Parse(node.Attributes["Distance"].Value);
 
                     currentVertex.AdjacentVertices.Add(new Adjacency(graph.MyGraph.Find(x => x.VertexID == id), distance));
@@ -145,7 +145,7 @@ namespace SharpGraph.src
             }
         }
 
-        private static Vertex LoadVertices(int id)
+        private static Vertex LoadVertices(string id)
         {
             return new Vertex(id);
         }
