@@ -28,8 +28,8 @@ namespace SharpGraph.src
 
 
             //Replaces originals with the updated vertex
-            MyGraph[MyGraph.FindIndex(x => x.VertexID == a.VertexID)] = b;
-            MyGraph[MyGraph.FindIndex(x => x.VertexID == b.VertexID)] = a;
+            MyGraph[MyGraph.FindIndex(x => x.VertexID == a.VertexID)] = a;
+            MyGraph[MyGraph.FindIndex(x => x.VertexID == b.VertexID)] = b;
         }
         public override void AddEdge(Vertex a,Vertex b, int distance)
         {
@@ -39,8 +39,8 @@ namespace SharpGraph.src
 
 
             //Replaces originals with the updated vertex
-            MyGraph[MyGraph.FindIndex(x => x.VertexID == a.VertexID)] = b;
-            MyGraph[MyGraph.FindIndex(x => x.VertexID == b.VertexID)] = a;
+            MyGraph[MyGraph.FindIndex(x => x.VertexID == a.VertexID)] = a;
+            MyGraph[MyGraph.FindIndex(x => x.VertexID == b.VertexID)] = b;
         }
 
         public override void AddVertex(Vertex a)

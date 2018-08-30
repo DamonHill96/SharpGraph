@@ -13,7 +13,7 @@ namespace SharpGraph.src
             Undirected,
             Directed
         }
-
+        #region Saving
         /// <summary>
         /// Save the graph in XML Format
         /// </summary>
@@ -60,20 +60,18 @@ namespace SharpGraph.src
             doc.Save(path);
 
         }
+        #endregion
+
+        #region Loading
         public static Graph Load(string path)
         {
             XmlDocument doc = new XmlDocument();
-            Graph graph = null;
+            
             doc.Load(path);
 
             var graphType = doc.DocumentElement.GetAttribute("type");
+            Graph graph = InstantiateGraphType(graphType);
 
-            switch (graphType)
-            {
-                case "Undirected": graph = new UndirectedGraph(); break;
-                case "Directed": graph = new DirectedGraph(); break;
-
-            }
             XmlNodeList list = doc.SelectNodes("graph//vertices//vertex");
 
             //Loads in each vertex
@@ -87,6 +85,16 @@ namespace SharpGraph.src
 
             LoadAdjacencies(graph, list);
             return graph;
+        }
+
+        private static Graph InstantiateGraphType(string type)
+        {
+            switch (type)
+            {
+                case "Undirected": return new UndirectedGraph(); 
+                case "Directed": return new DirectedGraph();
+            }
+            return null;
         }
 
         private static void LoadAdjacencies(Graph graph, XmlNodeList list)
@@ -111,7 +119,7 @@ namespace SharpGraph.src
             Vertex v = new Vertex(id);
             return v;
         }
-
+        #endregion
     }
 
 }

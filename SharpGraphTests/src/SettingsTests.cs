@@ -48,6 +48,7 @@ namespace SharpGraph.src.Tests
             graph.AddEdge(v1, v3, 7);
             Graph loadedGraph = Settings.Load(@"C:\Users\Damon\test.xml");
             Assert.IsTrue(graph.MyGraph[1].AdjacentVertices[0].Distance == loadedGraph.MyGraph[1].AdjacentVertices[0].Distance);
+            Assert.IsTrue(graph.MyGraph[0].AdjacentVertices[1].Distance == loadedGraph.MyGraph[0].AdjacentVertices[1].Distance);
             
         }
 
