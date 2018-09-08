@@ -20,6 +20,9 @@ namespace SharpGraph.src
         /// <summary>
         /// Save the graph in XML Format
         /// </summary>
+    
+        /// <param name="path">Path to save the file to. Make sure it has a .xml file extension</param>
+        /// <param name="type">Access through Settings.GraphType</param>
         public static void Save(Graph graph, string path, GraphType type)
         {
             try
