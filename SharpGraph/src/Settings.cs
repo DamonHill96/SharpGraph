@@ -1,74 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Xml;
-namespace SharpGraph.src
+
+namespace SharpGraph
 {
     public static class Settings
     {
-        private static XmlDocument doc = null;
+        private static XmlDocument doc;
 
         public enum GraphType
         {
             Undirected,
             Directed
         }
+
+        public static GraphType GetType(Graph graph)
+        {
+            if (graph.GetType() == typeof(UndirectedGraph))
+            {
+                return GraphType.Undirected;
+            }
+
+            return graph.GetType() == typeof(DirectedGraph) ? GraphType.Directed : default(GraphType);
+        }
         #region Saving
+
         /// <summary>
         /// Save the graph in XML Format
         /// </summary>
-    
+        /// <param name="graph">Your Graph Variable (MyGraph)</param>
         /// <param name="path">Path to save the file to. Make sure it has a .xml file extension</param>
         /// <param name="type">Access through Settings.GraphType</param>
-        public static void Save(Graph graph, string path, GraphType type)
+        /// <param name="shouldOpen">Specifies if the saved file should be opened after saving (with default text editor)</param>
+        public static void Save(Graph graph, string path, GraphType type, bool shouldOpen)
         {
-            try
+            doc = new XmlDocument();
+            XmlNode root = doc.CreateElement("graph");
+            doc.AppendChild(root);
+
+            XmlAttribute graphType = doc.CreateAttribute("type");
+            graphType.Value = type.ToString();
+            root.Attributes?.Append(graphType);
+
+            XmlNode vertices = doc.CreateElement("vertices");
+            root.AppendChild(vertices);
+
+            foreach (Vertex v in graph.MyGraph)
             {
+                var vertexid = v.VertexID;
+                var adjacentVertices = v.AdjacentVertices;
 
+                XmlNode vertex = doc.CreateElement("vertex");
+                vertices.AppendChild(vertex);
+                XmlAttribute id = doc.CreateAttribute("id");
+                id.Value = vertexid;
+                vertex.Attributes?.Append(id);
 
-                doc = new XmlDocument();
-                XmlNode root = doc.CreateElement("graph");
-                doc.AppendChild(root);
-
-                XmlAttribute graphType = doc.CreateAttribute("type");
-                graphType.Value = type.ToString();
-                root.Attributes.Append(graphType);
-
-                XmlNode vertices = doc.CreateElement("vertices");
-                root.AppendChild(vertices);
-
-                foreach (Vertex v in graph.MyGraph)
+                foreach (Adjacency a in adjacentVertices)
                 {
-                    var vertexid = v.VertexID;
-                    var adjacentVertices = v.AdjacentVertices;
+                    XmlNode adjacencies = doc.CreateElement("adjacency");
+                    vertex.AppendChild(adjacencies);
+                    XmlAttribute idAttr = doc.CreateAttribute("id");
+                    XmlAttribute distanceAttr = doc.CreateAttribute("Distance");
 
-                    XmlNode vertex = doc.CreateElement("vertex");
-                    vertices.AppendChild(vertex);
-                    XmlAttribute id = doc.CreateAttribute("id");
-                    id.Value = vertexid.ToString();
-                    vertex.Attributes.Append(id);
+                    idAttr.Value = a.AdjacentVertex.VertexID;
+                    distanceAttr.Value = a.Distance.ToString();
 
-                    foreach (Adjacency a in adjacentVertices)
-                    {
-                        XmlNode adjacencies = doc.CreateElement("adjacency");
-                        vertex.AppendChild(adjacencies);
-                        XmlAttribute idAttr = doc.CreateAttribute("id");
-                        XmlAttribute distanceAttr = doc.CreateAttribute("Distance");
-
-                        idAttr.Value = a.AdjacentVertex.VertexID.ToString();
-                        distanceAttr.Value = a.Distance.ToString();
-
-                        adjacencies.Attributes.Append(idAttr);
-                        adjacencies.Attributes.Append(distanceAttr);
-                    }
+                    adjacencies.Attributes?.Append(idAttr);
+                    adjacencies.Attributes?.Append(distanceAttr);
                 }
-                doc.Save(path);
-            }catch (XmlException)
+            }
+            doc.Save(path);
+
+            if (shouldOpen)
             {
-                throw;
+                Process.Start(path);
             }
         }
 
@@ -84,67 +90,58 @@ namespace SharpGraph.src
         {
             try
             {
-
-
                 doc = new XmlDocument();
 
                 doc.Load(path);
 
-                var graphType = doc.DocumentElement.GetAttribute("type");
+                var graphType = doc.DocumentElement?.GetAttribute("type");
                 Graph graph = InstantiateGraphType(graphType);
 
                 XmlNodeList list = doc.SelectNodes("graph//vertices//vertex");
 
                 //Loads in each vertex
-                //TODO allow id to be more than just int
-                foreach (XmlNode x in list)
-                {
-                    string id = x.Attributes["id"].Value;
 
-                    graph.AddVertex(LoadVertices(id));
-                    
+                if (list != null)
+                {
+                    foreach (XmlNode x in list)
+                    {
+                        var id = x.Attributes?["id"].Value;
+
+                        graph.AddVertex(LoadVertices(id));
+                    }
+
+                    LoadAdjacencies(graph, list);
                 }
 
-                LoadAdjacencies(graph, list);
                 return graph;
-            } catch (XmlException)
-            {
-                throw;
-            }catch (FileNotFoundException) 
-            {
-                throw;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                Logger.Log("An error occured while reading the file.");
+                Console.WriteLine("An error occured while reading the file.");
+                return null;
             }
-           
         }
 
         private static Graph InstantiateGraphType(string type)
         {
-
-            switch (type)
-            {
-                case "Undirected": return new UndirectedGraph(); 
-                case "Directed": return new DirectedGraph();
-            }
-            return null;
+            if (type == "Undirected")
+                return new UndirectedGraph();
+            return type != "Directed" ? null : new DirectedGraph();
         }
 
         private static void LoadAdjacencies(Graph graph, XmlNodeList list)
         {
             for (int i = 0; i < list.Count; i++) // For each vertex in the file
             {
-                Vertex currentVertex = graph.MyGraph[i];
+                var currentVertex = graph.MyGraph[i];
                 foreach (XmlNode node in list[i].ChildNodes) //Get each adjacency that has been saved
                 {
-                    var id = node.Attributes["id"].Value;
-                    var distance = int.Parse(node.Attributes["Distance"].Value);
+                    var id = node.Attributes?["id"].Value;
+                    var distance = int.Parse(node.Attributes?["Distance"].Value ?? throw new InvalidOperationException());
 
                     currentVertex.AdjacentVertices.Add(new Adjacency(graph.MyGraph.Find(x => x.VertexID == id), distance));
                 }
-
             }
         }
 

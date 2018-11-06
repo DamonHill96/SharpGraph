@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SharpGraph.src
+namespace SharpGraph
 {
    public class DirectedGraph : Graph
     {
@@ -20,8 +17,18 @@ namespace SharpGraph.src
         //TODO unique id for each vertex
         public int VertexIDCounter { get; set; }
 
+        public override void ClearGraph()
+        {
+            MyGraph.Clear();
+        }
+
         public override void AddEdge(Vertex a, Vertex b)
         {
+            if (a.Equals(b))
+            {
+                Console.WriteLine("Cannot add adjacency to itself!");
+                return;
+            }
 
             a.AdjacentVertices.Add(new Adjacency(b));
             //Replaces original with the updated vertex
@@ -30,11 +37,13 @@ namespace SharpGraph.src
         }
         public override void AddEdge(Vertex a, Vertex b, int distance)
         {
-
+            if (a.Equals(b))
+            {
+                Console.WriteLine("Cannot add adjacency to itself!");
+                return;
+            }
             a.AdjacentVertices.Add(new Adjacency(b, distance));
-            
-
-
+ 
             //Replaces original with the updated vertex
             MyGraph[MyGraph.FindIndex(x => x.VertexID == a.VertexID)] = a;
             

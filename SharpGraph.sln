@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpGraph", "SharpGraph\Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpGraphTests", "SharpGraphTests\SharpGraphTests.csproj", "{7843EA74-BC3C-4398-A394-505DA8F7D023}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DijkstasAlgorithm", "DijkstasAlgorithm\DijkstasAlgorithm.csproj", "{936799F9-3741-4493-B34D-CE969AB8668B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DijkstrasTests", "DijkstrasTests\DijkstrasTests.csproj", "{429F8304-AC32-4C8C-AD30-5414A7AADA1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{7843EA74-BC3C-4398-A394-505DA8F7D023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7843EA74-BC3C-4398-A394-505DA8F7D023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7843EA74-BC3C-4398-A394-505DA8F7D023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{936799F9-3741-4493-B34D-CE969AB8668B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{936799F9-3741-4493-B34D-CE969AB8668B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{936799F9-3741-4493-B34D-CE969AB8668B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{936799F9-3741-4493-B34D-CE969AB8668B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{429F8304-AC32-4C8C-AD30-5414A7AADA1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{429F8304-AC32-4C8C-AD30-5414A7AADA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{429F8304-AC32-4C8C-AD30-5414A7AADA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{429F8304-AC32-4C8C-AD30-5414A7AADA1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

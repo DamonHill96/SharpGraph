@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SharpGraph.src
+namespace SharpGraph
 {
    public class Vertex
     {
@@ -17,7 +14,7 @@ namespace SharpGraph.src
 
         public Vertex(string vertexID)
         {
-            this.VertexID = vertexID;
+            VertexID = vertexID;
         }
 
         public void ValidateID()

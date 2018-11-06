@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace SharpGraph.src
+namespace SharpGraph
 {
     public abstract class Graph
     {
@@ -17,6 +13,11 @@ namespace SharpGraph.src
         /// </summary>
         public abstract bool IsAdjacent(Vertex a, Vertex b);
 
+        /// <summary>
+        /// Emptys out the current Graph
+        /// </summary>
+        public abstract void ClearGraph();
+        
         /// <summary>
         /// Prints all nodes adjacent to the one passed as a parameter
         /// </summary>

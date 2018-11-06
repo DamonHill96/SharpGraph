@@ -1,20 +1,18 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpGraph.src;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SharpGraph;
+using Xunit;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace SharpGraph.src.Tests
+namespace SharpGraphTests
 {
     [TestClass()]
     public class DirectedGraphTests
     {
-        Graph graph = new DirectedGraph();
-        Vertex v1 = new Vertex();
-        Vertex v2 = new Vertex("Custom House");
-        Vertex v3 = new Vertex("Prince Regent");
+        private readonly Graph graph = new DirectedGraph();
+        private readonly Vertex v1 = new Vertex();
+        private readonly Vertex v2 = new Vertex("Custom House");
+        private readonly Vertex v3 = new Vertex("Prince Regent");
 
         public DirectedGraphTests()
         {
@@ -23,8 +21,8 @@ namespace SharpGraph.src.Tests
             graph.MyGraph.Add(v3);
         }
 
-        [TestMethod()]
-        public void DirectedIsAdjacentTest()
+        [Fact]
+        public void Should_be_adjacent()
         {
 
             v1.AdjacentVertices.Add(new Adjacency(v2));
@@ -34,7 +32,7 @@ namespace SharpGraph.src.Tests
             Assert.IsTrue(graph.IsAdjacent(v1, v2));
         }
 
-        [TestMethod()]
+        [Fact]
         public void DirectedNeighborsTest()
         {
 
@@ -53,8 +51,8 @@ namespace SharpGraph.src.Tests
 
         }
 
-        [TestMethod()]
-        public void DirectedAddVertexTest()
+        [Fact]
+        public void Should_add_vertex()
         {
             Graph graph2 = new DirectedGraph();
             graph2.AddVertex(v1);
@@ -64,29 +62,37 @@ namespace SharpGraph.src.Tests
 
         }
 
-        [TestMethod()]
-        public void DirectedRemoveVertexTest()
+        [Fact]
+        public void Should_remove_vertex()
         {
 
             graph.RemoveVertex(v1);
             Assert.AreEqual(2, graph.MyGraph.Count);
         }
 
-        [TestMethod()]
-        public void DirectedAddEdgeTest()
+        [Fact]
+        public void Should_add_edge()
         {
             graph.AddEdge(v1, v2);
             Assert.IsNotNull(graph.MyGraph[0].AdjacentVertices[0]);
         }
-        [TestMethod()]
-        public void DirectedAddEdgeTestWithDistance()
+
+        [Fact]
+        public void Should_not_add_adjacency_to_self()
+        {
+            graph.AddEdge(v1, v1);
+            graph.MyGraph[0].AdjacentVertices.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void Should_add_edge_with_distance()
         {
             graph.AddEdge(v1, v2, 16);
             Assert.AreEqual(16, graph.MyGraph[0].AdjacentVertices[0].Distance);
         }
 
-        [TestMethod()]
-        public void DirectedRemoveEdgeTest()
+        [Fact]
+        public void Should_remove_edge()
         {
             v1.AdjacentVertices.Add(new Adjacency(v2));
             v2.AdjacentVertices.Add(new Adjacency(v1));
@@ -97,21 +103,21 @@ namespace SharpGraph.src.Tests
             Assert.AreEqual(0, graph.MyGraph[0].AdjacentVertices.Count);
         }
 
-        [TestMethod()]
-        public void DirectedGetVertexValueTest()
+        [Fact]
+        public void Should_get_vertex_id()
         {
             Assert.AreEqual("Custom House", graph.GetVertexValue(v2));
         }
 
-        [TestMethod()]
-        public void DirectedSetVertexValueTest()
+        [Fact]
+        public void Should_set_vertex_id()
         {
             graph.SetVertexValue(v1, "14");
             Assert.AreEqual("14", graph.MyGraph[0].VertexID);
         }
 
-        [TestMethod()]
-        public void DirectedGetEdgeValueTest()
+        [Fact]
+        public void Should_get_distance()
         {
             v1.AdjacentVertices.Add(new Adjacency(v2, 5));
             v2.AdjacentVertices.Add(new Adjacency(v1, 5));
@@ -120,8 +126,8 @@ namespace SharpGraph.src.Tests
             Assert.AreEqual(5, graph.GetEdgeValue(v1, v2));
         }
 
-        [TestMethod()]
-        public void DirectedSetEdgeValueTest()
+        [Fact]
+        public void should_set_distance()
         {
             v1.AdjacentVertices.Add(new Adjacency(v2, 5));
             v2.AdjacentVertices.Add(new Adjacency(v1, 5));
